@@ -1,0 +1,69 @@
+## mako
+<%page expression_filter="h"/>
+<%!
+  from django.urls import reverse
+  from django.utils.translation import ugettext as _
+  from branding.api import get_footer
+  from openedx.core.djangoapps.lang_pref.api import footer_language_selector_is_enabled
+%>
+<% footer = get_footer(is_secure=is_secure) %>
+<%namespace name='static' file='static_content.html'/>
+<div class="columns" style="background: #262626; color: #fff;"> 
+  <div class="container">
+
+  <div class="column">
+    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
+    <ul style="list-style-type: none;">
+      <li>
+        <a href="https://turtlecoin.lol">Homepage</a>
+      </li>
+      <li>
+        <a href="https://explorer.turtlepay.io">Block Explorer</a>
+      </li>
+      <li>
+        <a href="https://blog.turtlecoin.lol">Blog</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="column">
+    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Resources</h5>
+    <ul class="list-unstyled">
+      <li>
+        <a href="https://github.com/turtlecoin">Github</a>
+      </li>
+      <li>
+        <a href="https://docs.turtlecoin.lol">Docs</a>
+      </li>
+      <li>
+        <a href="https://api-docs.turtlecoin.lol">API Docs</a>
+      </li>
+      <li>
+        <a href="https://turtlecoin.github.io/turtleturtle.org/">TurtleTurtle</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="column">
+    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Social Media</h5>
+    <ul class="list-unstyled">
+      <li>
+        <a href="http://chat.turtlecoin.lol">Discord (Chat)</a>
+      </li>
+      <li>
+        <a href="https://trtl.reddit.com">Reddit</a>
+      </li>
+      <li>
+        <a href="https://twitter.com/_turtlecoin">Twitter</a>
+      </li>
+      <li>
+        <a href="https://www.instagram.com/_turtlecoin/">Instagram</a>
+      </li>
+      <li>
+        <a href="https://www.facebook.com/groups/204815433401566/">Facebook</a>
+      </li>
+    </ul>
+  </div>
+
+</div>
+
