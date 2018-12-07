@@ -8,62 +8,92 @@
 %>
 <% footer = get_footer(is_secure=is_secure) %>
 <%namespace name='static' file='static_content.html'/>
-<div class="columns" style="background: #262626; color: #fff;"> 
-  <div class="container">
 
-  <div class="column">
-    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Links</h5>
-    <ul style="list-style-type: none;">
-      <li>
-        <a href="https://turtlecoin.lol">Homepage</a>
-      </li>
-      <li>
-        <a href="https://explorer.turtlepay.io">Block Explorer</a>
-      </li>
-      <li>
-        <a href="https://blog.turtlecoin.lol">Blog</a>
-      </li>
-    </ul>
+% if uses_bootstrap:
+  <div class="container-fluid wrapper-footer">
+    <footer>
+      <div class="row">
+        <div class="col-md-9">
+          <nav class="navbar site-nav navbar-expand-sm" aria-label="${_('About')}">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" href="https://turtlecoin.lol">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://blog.turtlecoin.lol">Blog</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://docs.turtlecoin.lol">Docs</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="https://turtlecoin.github.io/turtleturtle.org">Resources</a>
+              </li>
+            </ul>
+          </nav>
+
+        </div>
+        <div class="col-md-3">
+          <div class="logo">
+            <a href="https://turtlecoin.lol"">
+              <img src="${static.url("images/logo.png")}" alt="TutleCoin" class="logo-image" height="40px" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
+% else:
+  <div class="wrapper wrapper-footer" style="padding: 20px 10px 15px 10px;">
+    <footer id="footer-openedx" class="grid-container"
+      ## When rendering the footer through the branding API,
+      ## the direction may not be set on the parent element,
+      ## so we set it here.
+      % if bidi:
+        dir=${bidi}
+      % endif
+    >
+      <div class="colophon">
+        <nav class="nav-colophon" aria-label="${_('About')}">
+          <ol>
+            <li class="nav-item">
+              <a class="nav-link" href="https://turtlecoin.lol">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://blog.turtlecoin.lol">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://docs.turtlecoin.lol">Docs</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://turtlecoin.github.io/turtleturtle.org">Resources</a>
+            </li>
+          </ol>
+        </nav>
 
-  <div class="column">
-    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Resources</h5>
-    <ul class="list-unstyled">
-      <li>
-        <a href="https://github.com/turtlecoin">Github</a>
-      </li>
-      <li>
-        <a href="https://docs.turtlecoin.lol">Docs</a>
-      </li>
-      <li>
-        <a href="https://api-docs.turtlecoin.lol">API Docs</a>
-      </li>
-      <li>
-        <a href="https://turtlecoin.github.io/turtleturtle.org/">TurtleTurtle</a>
-      </li>
-    </ul>
+        % if context.get('include_language_selector', footer_language_selector_is_enabled()):
+            <%include file="${static.get_template_path('widgets/footer-language-selector.html')}"/>
+        % endif
+
+      </div>
+
+      <div class="footer-about-openedx">
+        <div class="logo">
+          <a href="https://turtlecoin.lol"">
+            <img src="${static.url("images/logo.png")}" alt="TutleCoin" class="logo-image" height="40px" />
+          </a>
+        </div>
+      </div>
+    </footer>
   </div>
-
-  <div class="column">
-    <h5 class="font-weight-bold text-uppercase mt-3 mb-4">Social Media</h5>
-    <ul class="list-unstyled">
-      <li>
-        <a href="http://chat.turtlecoin.lol">Discord (Chat)</a>
-      </li>
-      <li>
-        <a href="https://trtl.reddit.com">Reddit</a>
-      </li>
-      <li>
-        <a href="https://twitter.com/_turtlecoin">Twitter</a>
-      </li>
-      <li>
-        <a href="https://www.instagram.com/_turtlecoin/">Instagram</a>
-      </li>
-      <li>
-        <a href="https://www.facebook.com/groups/204815433401566/">Facebook</a>
-      </li>
-    </ul>
-  </div>
-
-</div>
-
+% endif
+% if include_dependencies:
+  <%static:js group='base_vendor'/>
+  <%static:css group='style-vendor'/>
+  <%include file="widgets/segment-io.html" />
+  <%include file="widgets/segment-io-footer.html" />
+% endif
+% if footer_css_urls:
+  % for url in footer_css_urls:
+    <link rel="stylesheet" type="text/css" href="${url}"></link>
+  % endfor
+% endif
